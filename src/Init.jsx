@@ -1,6 +1,6 @@
 import React from 'react'
 
-function App() {
+function Init() {
 
   return (
     <div className="App">
@@ -9,4 +9,4 @@ function App() {
   )
 }
 
-export default App
+export default Init
