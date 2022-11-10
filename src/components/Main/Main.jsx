@@ -9,6 +9,7 @@ const audioApi = new Audio();
 const Main = () => {
  const [isPlaying, setPlay] = useState(false);
  const [currentSrc, setSrc] = useState(null);
+ const [currentObj, setObj] = useState(null);
  const {tracks} = useSelector(({global}) => ({
   tracks: global.tracks
 }));
@@ -37,11 +38,16 @@ useEffect(() => {
  setSrc(audioApi.currentSrc || null);
 }, [audioApi.currentSrc])
 
+useEffect(() => {
+ let obj =  tracks.find(e => e.source == currentSrc);
+ setObj(obj);
+}, [currentSrc])
+
  return (
   <div>
    <Header />
    <LastAdded onTrackClick={onTrackClick} tracks={tracks} currentSrc={currentSrc} />
-   <PlayBar audioApi={audioApi} isPlaying={isPlaying} />
+   <PlayBar audioApi={audioApi} isPlaying={isPlaying} currentObj={currentObj} />
   </div>
  );
 };

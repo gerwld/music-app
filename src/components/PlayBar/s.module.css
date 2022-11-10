@@ -20,11 +20,6 @@
  box-sizing: border-box;
 }
 
-.current {
- display: flex;
- align-items: center;
-}
-
 .cr_creds {
  display: flex;
  flex-direction: column;
@@ -47,11 +42,36 @@
  margin-left: 15px;
 }
 
+.controls {
+ display: flex;
+ flex-direction: column;
+ flex: 0 0 49%;
+}
+
+.current, 
 .volume {
  display: flex;
  align-items: center;
+ flex: 0 0 26%;
+}
+
+.volume {
+ justify-content: flex-end;
 }
 
 .volume span {
  margin-right: 10px;
+}
+
+.controls,
+.cs_bottom input {
+ flex: 0 0 400px;
+ width: 400px;
+}
+
+.cs_top {
+ flex: 1;
+ display: flex;
+ align-items: center;
+ justify-content: center;
 }

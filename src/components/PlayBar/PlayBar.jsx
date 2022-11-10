@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import s from "./s.module.css";
 
-const PlayBar = ({ audioApi, isPlaying }) => {
+const PlayBar = ({ audioApi, isPlaying, currentObj }) => {
  const [volume, setVolume] = useState(60);
 
  const onSetVolume = (e) => {
@@ -14,9 +14,7 @@ const PlayBar = ({ audioApi, isPlaying }) => {
  const togglePlay = () => {
   if (audioApi.paused && audioApi.src) {
    audioApi.play();
-  } else {
-   audioApi.pause();
-  }
+  } else audioApi.pause();
  };
 
  useEffect(() => {
@@ -26,22 +24,31 @@ const PlayBar = ({ audioApi, isPlaying }) => {
  return (
   <>
    <div className={s.playbar}>
-
     <div className={s.current}>
-     <img src="" alt="Current" />
-     <div className={s.cr_creds}>
-      <span>Title</span>
-      <span>Author</span>
-     </div>
-     <button className={s.cr_fav}>add to fav</button>
+     {currentObj ? (
+      <>
+       <img src={currentObj.cover} alt={`${currentObj.title} - ${currentObj.author}`} />
+       <div className={s.cr_creds}>
+        <span>{currentObj.title}</span>
+        <span>{currentObj.author}</span>
+       </div>
+       <button className={s.cr_fav}>add to fav</button>
+      </>
+     ) : (
+      ""
+     )}
     </div>
 
     <div className={s.controls}>
-     <button>prev</button>
-     <button onClick={togglePlay}>{isPlaying ? "pause" : "play"}</button>
-     <button>next</button>
+     <div className={s.cs_top}>
+      <button>prev</button>
+      <button onClick={togglePlay}>{isPlaying ? "pause" : "play"}</button>
+      <button>next</button>
+     </div>
+     <div className={s.cs_bottom}>
+      <input type="range" min="0" step="0.1" value={30} onChange={onSetVolume}></input>
+     </div>
     </div>
-
     <div className={s.volume}>
      <span>volume</span>
      <input type="range" min="0" step="1" value={volume} onChange={onSetVolume}></input>
