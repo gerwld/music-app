@@ -3,16 +3,16 @@ import s from "./ListElement.module.css";
 
 const ListElement = ({ author, title, ind, album, duration }) => {
  return (
-  <div class={s.elem}>
-   <div class={s.main}>
+  <div className={s.elem}>
+   <div className={s.main}>
     <span>{ind}</span>
     <span>
      {author} - {title}
     </span>
    </div>
-   <span class={s.album}>{album}</span>
-   <span class={s.dur}>{duration}</span>
-   <button class={s.cnt_btn}>more</button>
+   <span className={s.album}>{album}</span>
+   <span className={s.dur}>{duration}</span>
+   <button className={s.cnt_btn}>more</button>
   </div>
  );
 };

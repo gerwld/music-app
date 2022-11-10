@@ -1,0 +1,24 @@
+.header {
+ width: 100%;
+ position: fixed;
+
+ display: flex;
+ align-items: center;
+ justify-content: center;
+
+ background-color: var(--main-color);
+ box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.249);
+}
+
+.header,
+.gap {
+ height: 70px;
+ box-sizing: border-box;
+}
+
+.title {
+ text-transform: uppercase;
+ font-weight: 600;
+ letter-spacing: 0.08em;
+ color: #fff;
+}
