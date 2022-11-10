@@ -1,0 +1,26 @@
+.elem {
+ width: 100%;
+ display: flex;
+ align-items: center;
+
+ padding: 10px 15px;
+ border-bottom: 1px solid rgb(245, 244, 244);
+ box-sizing: border-box;
+}
+
+.main {
+ flex: 0 1 50%;
+}
+
+.elem span {
+ margin-right: 10px;
+}
+
+.album {
+ flex: 0 1 20%;
+}
+
+.dur {
+ flex: 1;
+}
+
