@@ -2,7 +2,14 @@ import React, { useEffect, useState } from "react";
 import s from "./s.module.css";
 
 const PlayBar = ({ audioApi, isPlaying }) => {
- const [volume, setVolume] = useState(0.6);
+ const [volume, setVolume] = useState(60);
+
+ const onSetVolume = (e) => {
+  let range = e.target.value;
+  if ((range && volume !== range) || range === 0) {
+   setVolume(range);
+  }
+ };
 
  const togglePlay = () => {
   if (audioApi.paused && audioApi.src) {
@@ -13,7 +20,7 @@ const PlayBar = ({ audioApi, isPlaying }) => {
  };
 
  useEffect(() => {
-  audioApi.volume = volume;
+  audioApi.volume = volume / 100;
  }, [volume]);
 
  return (
@@ -24,7 +31,10 @@ const PlayBar = ({ audioApi, isPlaying }) => {
      <button onClick={togglePlay}>{isPlaying ? "pause" : "play"}</button>
      <button>next</button>
     </div>
-    <div className={s.volume}>volume</div>
+    <div className={s.volume}>
+     volume
+     <input type="range" min="0" step="1" value={volume} onChange={onSetVolume}></input>
+    </div>
    </div>
    <div className={s.gap} />
   </>
