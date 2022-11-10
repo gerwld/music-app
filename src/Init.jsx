@@ -1,12 +1,8 @@
-import React from 'react'
+import React from "react";
+import Main from "./components/Main/Main";
 
 function Init() {
-
-  return (
-    <div className="App">
-      content
-    </div>
-  )
+ return <Main />;
 }
 
-export default Init
+export default Init;
