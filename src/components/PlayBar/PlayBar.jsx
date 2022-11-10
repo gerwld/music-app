@@ -3,11 +3,19 @@ import s from "./s.module.css";
 
 const PlayBar = ({ audioApi, isPlaying, currentObj }) => {
  const [volume, setVolume] = useState(60);
+ const [progress, setProg] = useState(0);
 
  const onSetVolume = (e) => {
   let range = e.target.value;
   if ((range && volume !== range) || range === 0) {
    setVolume(range);
+  }
+ };
+
+ const onSetProg = (e) => {
+  let range = e.target.value;
+  if ((range && volume !== range) || range === 0) {
+   setProg(range);
   }
  };
 
@@ -20,6 +28,17 @@ const PlayBar = ({ audioApi, isPlaying, currentObj }) => {
  useEffect(() => {
   audioApi.volume = volume / 100;
  }, [volume]);
+
+ // useEffect(() => {
+ //  const setTiming = () => {
+ //    setProg(audioApi.currentTime);
+ //  };
+ //  audioApi.addEventListener("timeupdate", setTiming);
+
+ //  return () => {
+ //   audioApi.removeEventListener("timeupdate", setTiming);
+ //  };
+ // }, []);
 
  return (
   <>
@@ -46,7 +65,7 @@ const PlayBar = ({ audioApi, isPlaying, currentObj }) => {
       <button>next</button>
      </div>
      <div className={s.cs_bottom}>
-      <input type="range" min="0" step="0.1" value={30} onChange={onSetVolume}></input>
+      <input type="range" min="0" step="0.1" value={progress} onChange={onSetProg}></input>
      </div>
     </div>
     <div className={s.volume}>
