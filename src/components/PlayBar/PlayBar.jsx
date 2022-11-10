@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
 import s from "./s.module.css";
 
-const PlayBar = ({ audioApi }) => {
+const PlayBar = ({ audioApi, isPlaying }) => {
  const [volume, setVolume] = useState(0.6);
- const [isPlaying, setPlay] = useState(false);
 
  const togglePlay = () => {
-  if (audioApi.paused) {
+  if (audioApi.paused && audioApi.src) {
    audioApi.play();
   } else {
    audioApi.pause();
@@ -16,21 +15,6 @@ const PlayBar = ({ audioApi }) => {
  useEffect(() => {
   audioApi.volume = volume;
  }, [volume]);
-
- useEffect(() => {
-  const setPlaying = (bool) => {
-   if (isPlaying !== bool) {
-    setPlay(bool);
-   }
-  };
-  let a = audioApi.addEventListener("play", () => setPlaying(true));
-  let b = audioApi.addEventListener("pause", () => setPlaying(false));
-
-  return () => {
-   audioApi.removeEventListener("play", setPlaying);
-   audioApi.removeEventListener("pause", setPlaying);
-  };
- }, [audioApi, isPlaying]);
 
  return (
   <>

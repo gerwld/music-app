@@ -1,10 +1,23 @@
-import React from "react";
+import React, { useEffect } from "react";
 import hideImg from "../../services/hideImg";
 import s from "./ListElement.module.css";
 
-const ListElement = ({ author, title, id, cover, duration, album }) => {
+const ListElement = ({ author, title, id, cover, duration, album, onTrackClick, source, currentSrc }) => {
+
+ const onTrackClickAction = () => {
+  onTrackClick(source);
+ }
+
+ const isPlaying = () => {
+  return source == currentSrc ? s.isplaying : "";
+ }
+
+ useEffect(() => {
+
+ }, [currentSrc])
+
  return (
-  <div className={s.elem}>
+  <div className={`${s.elem} ${isPlaying()}`} onClick={onTrackClickAction}>
    <div className={s.main}>
     <span className={s.id}>{id}</span>
     <div className={s.cover}>
