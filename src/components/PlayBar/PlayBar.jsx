@@ -26,13 +26,24 @@ const PlayBar = ({ audioApi, isPlaying }) => {
  return (
   <>
    <div className={s.playbar}>
+
+    <div className={s.current}>
+     <img src="" alt="Current" />
+     <div className={s.cr_creds}>
+      <span>Title</span>
+      <span>Author</span>
+     </div>
+     <button className={s.cr_fav}>add to fav</button>
+    </div>
+
     <div className={s.controls}>
      <button>prev</button>
      <button onClick={togglePlay}>{isPlaying ? "pause" : "play"}</button>
      <button>next</button>
     </div>
+
     <div className={s.volume}>
-     volume
+     <span>volume</span>
      <input type="range" min="0" step="1" value={volume} onChange={onSetVolume}></input>
     </div>
    </div>
