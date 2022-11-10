@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Header from "../Header/Header";
+import LastAdded from "../LastAdded/LastAdded";
 import ListElement from "../ListElement/ListElement";
 import PlayBar from "../PlayBar/PlayBar";
 
@@ -14,6 +15,7 @@ const Main = () => {
   <div>
    <Header />
    <ListElement />
+   <LastAdded />
    <PlayBar audioApi={audioApi} />
   </div>
  );
