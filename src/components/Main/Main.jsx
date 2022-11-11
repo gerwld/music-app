@@ -4,15 +4,15 @@ import Header from "../Header/Header";
 import LastAdded from "../LastAdded/LastAdded";
 import PlayBar from "../PlayBar/PlayBar";
 
-const audioApi = new Audio();
+const audioCt = new Audio();
 
 const Main = () => {
  const [isPlaying, setPlay] = useState(false);
  const [currentSrc, setSrc] = useState(null);
  const [currentObj, setObj] = useState(null);
- const {tracks} = useSelector(({global}) => ({
-  tracks: global.tracks
-}));
+ const { tracks } = useSelector(({ global }) => ({
+  tracks: global.tracks,
+ }));
 
  useEffect(() => {
   const setPlaying = (bool) => {
@@ -20,31 +20,55 @@ const Main = () => {
     setPlay(bool);
    }
   };
-  audioApi.addEventListener("play", () => setPlaying(true));
-  audioApi.addEventListener("pause", () => setPlaying(false));
+  audioCt.addEventListener("play", () => setPlaying(true));
+  audioCt.addEventListener("pause", () => setPlaying(false));
 
   return () => {
-   audioApi.removeEventListener("play", setPlaying);
-   audioApi.removeEventListener("pause", setPlaying);
+   audioCt.removeEventListener("play", setPlaying);
+   audioCt.removeEventListener("pause", setPlaying);
   };
  }, [isPlaying]);
 
-const onTrackClick = (source) => {
+ const onTrackClick = (source) => {
   setSrc(source);
-  audioApi.src = source;
-  audioApi.play();
-}
+  audioCt.src = source;
+  audioCt.play();
+ };
 
-useEffect(() => {
- let obj =  tracks.find(e => e.source == currentSrc);
- setObj(obj);
-}, [currentSrc])
+ const onNextTrack = () => {
+  if (currentObj) {
+    let id = tracks.findIndex(e => e.id === currentObj.id);
+    if(id + 1 < tracks.length) {
+      onTrackClick(tracks[id + 1].source);
+    } else initSet();
+  } else initSet();
+ };
+
+ const onPrevTrack = () => {
+  if (currentObj) {
+    let id = tracks.findIndex(e => e.id === currentObj.id);
+    if(id > 0) {
+      onTrackClick(tracks[id - 1].source);
+    } else initSet();
+  } else initSet();
+ };
+
+ const initSet = () => {
+  setSrc(tracks[0].source);
+  audioCt.src = tracks[0].source;
+  audioCt.play();
+ }
+
+ useEffect(() => {
+  let obj = tracks.find((e) => e.source == currentSrc);
+  setObj(obj);
+ }, [currentSrc]);
 
  return (
   <div>
    <Header />
    <LastAdded onTrackClick={onTrackClick} tracks={tracks} currentSrc={currentSrc} />
-   <PlayBar audioApi={audioApi} isPlaying={isPlaying} currentObj={currentObj} />
+   <PlayBar audioCt={audioCt} isPlaying={isPlaying} currentObj={currentObj} onNextTrack={onNextTrack} onPrevTrack={onPrevTrack} />
   </div>
  );
 };

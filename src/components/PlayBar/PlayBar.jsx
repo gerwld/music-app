@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import s from "./s.module.css";
 
-const PlayBar = ({ audioApi, isPlaying, currentObj }) => {
+const PlayBar = ({ audioCt, isPlaying, currentObj, onNextTrack, onPrevTrack }) => {
  const [volume, setVolume] = useState(60);
  const [progress, setProg] = useState(0);
  const [duration, setDur] = useState(0);
@@ -16,24 +16,24 @@ const PlayBar = ({ audioApi, isPlaying, currentObj }) => {
  const onScrub = (e) => {
   let range = e.target.value;
   if ((range && volume !== range) || range === 0) {
-   audioApi.currentTime =  duration * range * 0.01;
+   audioCt.currentTime =  duration * range * 0.01;
   }
  };
 
  const togglePlay = () => {
-  if (audioApi.paused && audioApi.src) {
-   audioApi.play();
-  } else audioApi.pause();
+  if (audioCt.paused && audioCt.src) {
+   audioCt.play();
+  } else audioCt.pause();
  };
 
  useEffect(() => {
-  audioApi.volume = volume / 100;
+  audioCt.volume = volume / 100;
  }, [volume]);
 
  useEffect(() => {
   const setTiming = () => {
-   let dur = audioApi.duration;
-   let timing = audioApi.currentTime / (dur * 0.01);
+   let dur = audioCt.duration;
+   let timing = audioCt.currentTime / (dur * 0.01);
    if(timing && timing !== progress) {
     setProg(timing);
    }
@@ -41,10 +41,10 @@ const PlayBar = ({ audioApi, isPlaying, currentObj }) => {
     setDur(dur);
    }
   };
-  audioApi.addEventListener("timeupdate", setTiming);
+  audioCt.addEventListener("timeupdate", setTiming);
 
   return () => {
-   audioApi.removeEventListener("timeupdate", setTiming);
+   audioCt.removeEventListener("timeupdate", setTiming);
   };
  }, []);
 
@@ -68,9 +68,9 @@ const PlayBar = ({ audioApi, isPlaying, currentObj }) => {
 
     <div className={s.controls}>
      <div className={s.cs_top}>
-      <button>prev</button>
+      <button onClick={onPrevTrack}>prev</button>
       <button onClick={togglePlay}>{isPlaying ? "pause" : "play"}</button>
-      <button>next</button>
+      <button onClick={onNextTrack}>next</button>
      </div>
      <div className={s.cs_bottom}>
       <input type="range" min="0" step="0.1" value={progress} onInput={onScrub}></input>

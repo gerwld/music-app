@@ -79,15 +79,7 @@ let init = {
    cover: "https://raw.githubusercontent.com/gerwld/host-data/master/music_content/album_covers/10.jpeg",
    source: "https://raw.githubusercontent.com/gerwld/host-data/master/music_content/10.mp3",
    duration: "03:42",
-  },
-  {
-   id: 11,
-   title: "Isolation",
-   author: "Protostar, hayve",
-   cover: "https://raw.githubusercontent.com/gerwld/host-data/master/music_content/album_covers/5.jpeg",
-   source: "https://raw.githubusercontent.com/gerwld/host-data/master/music_content/5.mp3",
-   duration: "04:33",
-  },
+  }
  ],
 };
 
