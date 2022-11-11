@@ -27,7 +27,7 @@ const Main = () => {
    audioApi.removeEventListener("play", setPlaying);
    audioApi.removeEventListener("pause", setPlaying);
   };
- }, []);
+ }, [isPlaying]);
 
 const onTrackClick = (source) => {
   setSrc(source);
