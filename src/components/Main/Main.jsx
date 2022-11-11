@@ -27,16 +27,13 @@ const Main = () => {
    audioApi.removeEventListener("play", setPlaying);
    audioApi.removeEventListener("pause", setPlaying);
   };
- }, [isPlaying]);
+ }, []);
 
 const onTrackClick = (source) => {
+  setSrc(source);
   audioApi.src = source;
   audioApi.play();
 }
-
-useEffect(() => {
- setSrc(audioApi.currentSrc || null);
-}, [audioApi.currentSrc])
 
 useEffect(() => {
  let obj =  tracks.find(e => e.source == currentSrc);

@@ -4,6 +4,7 @@ import s from "./s.module.css";
 const PlayBar = ({ audioApi, isPlaying, currentObj }) => {
  const [volume, setVolume] = useState(60);
  const [progress, setProg] = useState(0);
+ const [duration, setDur] = useState(0);
 
  const onSetVolume = (e) => {
   let range = e.target.value;
@@ -12,10 +13,10 @@ const PlayBar = ({ audioApi, isPlaying, currentObj }) => {
   }
  };
 
- const onSetProg = (e) => {
+ const onScrub = (e) => {
   let range = e.target.value;
   if ((range && volume !== range) || range === 0) {
-   setProg(range);
+   audioApi.currentTime =  duration * range * 0.01;
   }
  };
 
@@ -29,16 +30,23 @@ const PlayBar = ({ audioApi, isPlaying, currentObj }) => {
   audioApi.volume = volume / 100;
  }, [volume]);
 
- // useEffect(() => {
- //  const setTiming = () => {
- //    setProg(audioApi.currentTime);
- //  };
- //  audioApi.addEventListener("timeupdate", setTiming);
+ useEffect(() => {
+  const setTiming = () => {
+   let dur = audioApi.duration;
+   let timing = audioApi.currentTime / (dur * 0.01);
+   if(timing && timing !== progress) {
+    setProg(timing);
+   }
+   if(dur && dur !== duration) {
+    setDur(dur);
+   }
+  };
+  audioApi.addEventListener("timeupdate", setTiming);
 
- //  return () => {
- //   audioApi.removeEventListener("timeupdate", setTiming);
- //  };
- // }, []);
+  return () => {
+   audioApi.removeEventListener("timeupdate", setTiming);
+  };
+ }, []);
 
  return (
   <>
@@ -65,7 +73,7 @@ const PlayBar = ({ audioApi, isPlaying, currentObj }) => {
       <button>next</button>
      </div>
      <div className={s.cs_bottom}>
-      <input type="range" min="0" step="0.1" value={progress} onChange={onSetProg}></input>
+      <input type="range" min="0" step="0.1" value={progress} onInput={onScrub}></input>
      </div>
     </div>
     <div className={s.volume}>
