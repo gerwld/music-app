@@ -11,8 +11,6 @@ const PlayBar = ({ audioCt, isPlaying, currentObj, onNextTrack, onPrevTrack, cre
  const [isRepeat, setRep] = useState(false);
  const [isShuffle, setShuf] = useState(false);
 
-const [isCoverVis, setCover] = useState(false);
-
  const onSetVolume = (e) => {
   let range = e.target.value;
   if ((range && volume !== range) || range === 0) {
@@ -43,10 +41,6 @@ const [isCoverVis, setCover] = useState(false);
    } else audioCt.pause();
   } else initSet();
  };
-
- const toggleCover = () => {
-  setCover(!isCoverVis);
- }
 
  useEffect(() => {
   audioCt.volume = volume / 100;
@@ -128,7 +122,7 @@ const [isCoverVis, setCover] = useState(false);
  );
 };
 
-const FullCover = withClickOutside(({ currentObj, refE, ignore, setShow, isShow }) => {
+const FullCover = withClickOutside(({ currentObj, refE, setShow, isShow }) => {
  return (
   <div ref={refE}>
    <div className={s.cr_cover}>

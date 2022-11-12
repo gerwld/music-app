@@ -26,7 +26,7 @@
 }
 
 .current img {
- flex: 0 0 50px;
+ flex: 0 0 60px;
  width: 60px;
  height: 60px;
  overflow: hidden;
@@ -121,6 +121,7 @@
  right: 0;
  bottom: calc(50% - 0.5em);
 
+ width: 60px;
  padding: 0;
 
  text-align: center;

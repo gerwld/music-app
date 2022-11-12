@@ -16,21 +16,6 @@ const Main = () => {
   tracks: global.tracks,
  }));
 
- useEffect(() => {
-  const setPlaying = (bool) => {
-   if (isPlaying !== bool) {
-    setPlay(bool);
-   }
-  };
-  audioCt.addEventListener("play", () => setPlaying(true));
-  audioCt.addEventListener("pause", () => setPlaying(false));
-
-  return () => {
-   audioCt.removeEventListener("play", setPlaying);
-   audioCt.removeEventListener("pause", setPlaying);
-  };
- }, [isPlaying]);
-
  const onTrackClick = (source) => {
   setSrc(source);
   audioCt.src = source;
@@ -40,7 +25,6 @@ const Main = () => {
  const onNextTrack = (isShuffle) => {
   //If shuffle - find index of next id, if its bigger than array start from index 0 and play it.
   if(isShuffle && currentObj) {
-    console.log('is shuffle');
     let currentId = currentObj.id;
     let nextIdIndex = shuffleIds.indexOf(currentId) + 1;
     let nextId;
@@ -90,11 +74,27 @@ const Main = () => {
   setObj(obj);
  }, [currentSrc]);
 
+ useEffect(() => {
+  const setPlaying = (bool) => {
+   if (isPlaying !== bool) {
+    setPlay(bool);
+   }
+  };
+  audioCt.addEventListener("play", () => setPlaying(true));
+  audioCt.addEventListener("pause", () => setPlaying(false));
+
+  return () => {
+   audioCt.removeEventListener("play", setPlaying);
+   audioCt.removeEventListener("pause", setPlaying);
+  };
+ }, [isPlaying]);
+
  return (
   <div>
    <Header />
    <LastAdded onTrackClick={onTrackClick} tracks={tracks} currentSrc={currentSrc} />
    <PlayBar audioCt={audioCt} isPlaying={isPlaying} currentObj={currentObj} onNextTrack={onNextTrack} onPrevTrack={onPrevTrack} createShuffle={createShuffle} initSet={initSet} />
+
   </div>
  );
 };
