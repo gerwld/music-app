@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import tohms from "../../services/tohms";
 import s from "./s.module.css";
 
 const PlayBar = ({ audioCt, isPlaying, currentObj, onNextTrack, onPrevTrack }) => {
@@ -74,6 +75,10 @@ const PlayBar = ({ audioCt, isPlaying, currentObj, onNextTrack, onPrevTrack }) =
      </div>
      <div className={s.cs_bottom}>
       <input type="range" min="0" step="0.1" value={progress} onInput={onScrub}></input>
+      <div className={s.cs_timeline}>
+       <span>{progress ? tohms(progress * duration * 0.01) : ''}</span>
+       <span>{duration ? tohms(duration) : '0:00'}</span>
+      </div>
      </div>
     </div>
     <div className={s.volume}>

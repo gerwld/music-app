@@ -1,5 +1,4 @@
 import React from 'react'
-import { useSelector } from 'react-redux';
 import ListElement from '../ListElement/ListElement';
 import LoaderScreen from '../LoaderScreen/LoaderScreen';
 

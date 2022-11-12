@@ -37,19 +37,19 @@ const Main = () => {
 
  const onNextTrack = () => {
   if (currentObj) {
-    let id = tracks.findIndex(e => e.id === currentObj.id);
-    if(id + 1 < tracks.length) {
-      onTrackClick(tracks[id + 1].source);
-    } else initSet();
+   let id = tracks.findIndex((e) => e.id === currentObj.id);
+   if (id + 1 < tracks.length) {
+    onTrackClick(tracks[id + 1].source);
+   } else initSet();
   } else initSet();
  };
 
  const onPrevTrack = () => {
   if (currentObj) {
-    let id = tracks.findIndex(e => e.id === currentObj.id);
-    if(id > 0) {
-      onTrackClick(tracks[id - 1].source);
-    } else initSet();
+   let id = tracks.findIndex((e) => e.id === currentObj.id);
+   if (id > 0) {
+    onTrackClick(tracks[id - 1].source);
+   } else initSet();
   } else initSet();
  };
 
@@ -57,7 +57,7 @@ const Main = () => {
   setSrc(tracks[0].source);
   audioCt.src = tracks[0].source;
   audioCt.play();
- }
+ };
 
  useEffect(() => {
   let obj = tracks.find((e) => e.source == currentSrc);
