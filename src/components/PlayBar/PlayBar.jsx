@@ -2,10 +2,13 @@ import React, { useEffect, useState } from "react";
 import tohms from "../../services/tohms";
 import s from "./s.module.css";
 
-const PlayBar = ({ audioCt, isPlaying, currentObj, onNextTrack, onPrevTrack }) => {
+const PlayBar = ({ audioCt, isPlaying, currentObj, onNextTrack, onPrevTrack, createShuffle }) => {
  const [volume, setVolume] = useState(60);
  const [progress, setProg] = useState(0);
  const [duration, setDur] = useState(0);
+
+ const [isRepeat, setRep] = useState(false);
+ const [isShuffle, setShuf] = useState(false);
 
  const onSetVolume = (e) => {
   let range = e.target.value;
@@ -20,6 +23,15 @@ const PlayBar = ({ audioCt, isPlaying, currentObj, onNextTrack, onPrevTrack }) =
    audioCt.currentTime =  duration * range * 0.01;
   }
  };
+
+ const toggleRepeat = () => {
+  setRep(!isRepeat);
+ }
+
+ const toggleShuffle = () => {
+  createShuffle(!isShuffle);
+  setShuf(!isShuffle);
+ }
 
  const togglePlay = () => {
   if (audioCt.paused && audioCt.src) {
@@ -49,10 +61,25 @@ const PlayBar = ({ audioCt, isPlaying, currentObj, onNextTrack, onPrevTrack }) =
   };
  }, []);
 
+ useEffect(() => {
+  const onEnd = () => {
+   if(isRepeat) {
+    audioCt.play();
+    console.log('is repeat');
+   } else onNextTrack(isShuffle);
+  }
+  audioCt.addEventListener("ended", onEnd);
+
+  return () => {
+  audioCt.removeEventListener("ended", onEnd);
+  }
+ }, [isRepeat, isShuffle, currentObj])
+
  return (
   <>
    <div className={s.playbar}>
     <div className={s.current}>
+     {/* Show preview if current object exist */}
      {currentObj ? (
       <>
        <img src={currentObj.cover} alt={`${currentObj.title} - ${currentObj.author}`} />
@@ -69,9 +96,12 @@ const PlayBar = ({ audioCt, isPlaying, currentObj, onNextTrack, onPrevTrack }) =
 
     <div className={s.controls}>
      <div className={s.cs_top}>
-      <button onClick={onPrevTrack}>prev</button>
+      <button onClick={() => onPrevTrack(isShuffle)}>prev</button>
       <button onClick={togglePlay}>{isPlaying ? "pause" : "play"}</button>
-      <button onClick={onNextTrack}>next</button>
+      <button onClick={() => onNextTrack(isShuffle)}>next</button>
+      ||
+      <button onClick={toggleRepeat}>repeat {isRepeat ? 'on' : 'off'}</button>
+      <button onClick={toggleShuffle}>shuffle {isShuffle ? 'on' : 'off'}</button>
      </div>
      <div className={s.cs_bottom}>
       <input type="range" min="0" step="0.1" value={progress} onInput={onScrub}></input>
