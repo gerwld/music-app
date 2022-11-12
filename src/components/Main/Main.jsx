@@ -94,7 +94,7 @@ const Main = () => {
   <div>
    <Header />
    <LastAdded onTrackClick={onTrackClick} tracks={tracks} currentSrc={currentSrc} />
-   <PlayBar audioCt={audioCt} isPlaying={isPlaying} currentObj={currentObj} onNextTrack={onNextTrack} onPrevTrack={onPrevTrack} createShuffle={createShuffle} />
+   <PlayBar audioCt={audioCt} isPlaying={isPlaying} currentObj={currentObj} onNextTrack={onNextTrack} onPrevTrack={onPrevTrack} createShuffle={createShuffle} initSet={initSet} />
   </div>
  );
 };

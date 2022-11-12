@@ -27,8 +27,8 @@
 
 .current img {
  flex: 0 0 50px;
- width: 50px;
- height: 50px;
+ width: 60px;
+ height: 60px;
  overflow: hidden;
  background-color: #fff;
  object-fit: cover;
@@ -82,4 +82,60 @@
  margin-top: -5px;
 
  font-size: 0.8em;
+}
+
+.full_cover {
+ position: fixed;
+ left: 0;
+ bottom: 90px;
+
+ width: 300px;
+ height: 300px;
+ background-color: #fff;
+ border: 1px solid var(--main-color);
+}
+
+.full_cover img {
+ width: 286px;
+ height: 286px;
+ margin: 7px;
+}
+
+.fc_wrapper {
+ position: relative;
+}
+
+.fc_wrapper button {
+ position: absolute;
+ top: 0;
+ right: 0;
+}
+
+.cr_cover {
+ position: relative;
+}
+
+.cr_expand {
+ position: absolute;
+ left: 0;
+ right: 0;
+ bottom: calc(50% - 0.5em);
+
+ padding: 0;
+
+ text-align: center;
+ font-size: 1em;
+ line-height: 1.5em;
+ border: 1px solid #000;
+ background-color: #fff;
+ opacity: 0;
+}
+
+.cr_expand:hover,
+.cr_cover:hover .cr_expand {
+ opacity: 1;
+}
+
+.cr_expand:active {
+ background-color: #e4dfdf;
 }

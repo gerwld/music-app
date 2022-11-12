@@ -29,6 +29,7 @@ const ListElement = ({ author, title, id, cover, duration, album, onTrackClick, 
    </div>
    <span className={s.album}>{album}</span>
    <span className={s.dur}>{duration}</span>
+   <button className={s.cnt_btn}>fav(-)</button>
    <button className={s.cnt_btn}>more</button>
   </div>
  );
