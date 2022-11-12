@@ -15,6 +15,7 @@ const PlayBar = ({ audioCt, isPlaying, currentObj, onNextTrack, onPrevTrack, cre
   let range = e.target.value;
   if ((range && volume !== range) || range === 0) {
    setVolume(range);
+   localStorage.setItem('vol', range);
   }
  };
 
@@ -27,11 +28,12 @@ const PlayBar = ({ audioCt, isPlaying, currentObj, onNextTrack, onPrevTrack, cre
 
  const toggleRepeat = () => {
   setRep(!isRepeat);
+  localStorage.setItem('isRepeat', !isRepeat);
  };
 
  const toggleShuffle = () => {
-  createShuffle(!isShuffle);
   setShuf(!isShuffle);
+  localStorage.setItem('isShuffle', !isShuffle);
  };
 
  const togglePlay = () => {
@@ -47,11 +49,30 @@ const PlayBar = ({ audioCt, isPlaying, currentObj, onNextTrack, onPrevTrack, cre
  }, [volume]);
 
  useEffect(() => {
+   createShuffle(isShuffle);
+ }, [isShuffle]);
+
+ useEffect(() => {
+  //set cache from lS
+  let ct = JSON.parse(localStorage.getItem("last_time"));
+  let vol = localStorage.getItem('vol');
+  let rep = JSON.parse(localStorage.getItem('isRepeat'));
+  let shuff = JSON.parse(localStorage.getItem('isShuffle'));
+  if(ct) {
+   audioCt.currentTime = ct.point;
+   setDur(ct.duration);
+  }
+  vol && setVolume(vol);
+  typeof rep == 'boolean' && setRep(rep);
+  typeof shuff == 'boolean' && setShuf(shuff);
+
+
   const setTiming = () => {
    let dur = audioCt.duration;
    let timing = audioCt.currentTime / (dur * 0.01);
    if (timing && timing !== progress) {
     setProg(timing);
+    localStorage.setItem("last_time", JSON.stringify({point: audioCt.currentTime, duration: audioCt.duration}));
    }
    if (dur && dur !== duration) {
     setDur(dur);
@@ -67,8 +88,7 @@ const PlayBar = ({ audioCt, isPlaying, currentObj, onNextTrack, onPrevTrack, cre
  useEffect(() => {
   const onEnd = () => {
    if (isRepeat) {
-    audioCt.play();
-    console.log("is repeat");
+    audioCt.play().catch(e => 0);
    } else onNextTrack(isShuffle);
   };
   audioCt.addEventListener("ended", onEnd);
