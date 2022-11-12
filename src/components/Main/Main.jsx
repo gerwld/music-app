@@ -36,7 +36,8 @@ const Main = () => {
    let currentTrack = tracks.find((e) => e.id === nextId);
    setObj(currentTrack);
    onTrackClick(currentTrack.source);
-  } else if (currentObj) {
+  } 
+  else if (currentObj) {
    let id = tracks.findIndex((e) => e.id === currentObj.id);
    if (id + 1 < tracks.length) {
     onTrackClick(tracks[id + 1].source);

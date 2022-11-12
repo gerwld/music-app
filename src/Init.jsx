@@ -5,9 +5,11 @@ import store from "./redux/redux-store";
 
 function Init() {
  return (
-  <Provider store={store}>
-   <Main />
-  </Provider>
+  <React.StrictMode>
+   <Provider store={store}>
+    <Main />
+   </Provider>
+  </React.StrictMode>
  );
 }
 
