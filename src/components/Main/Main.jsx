@@ -1,21 +1,24 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import shuffle from "services/shuffle";
 
 import Header from "components/Header/Header";
 import LastAdded from "components/LastAdded/LastAdded";
 import PlayBar from "components/PlayBar/PlayBar";
+import { setCurrent, setPlaying, setShuffleIds } from "redux/reducers/glob-reducer";
 
-const audioCt = new Audio();
 
 const Main = () => {
- const [isPlaying, setPlay] = useState(false);
+ const disp = useDispatch();
+ const audioCt = React.useRef(new Audio()).current;
+
  const [isShuffle, setShuf] = useState(false);
  const [currentSrc, setSrc] = useState(null);
- const [currentObj, setObj] = useState(null);
- const [shuffleIds, setShufIds] = useState(null);
- const { tracks } = useSelector(({ global }) => ({
+ const { isPlaying, tracks, currentObj, shuffleIds } = useSelector(({ global }) => ({
+  isPlaying: global.isPlaying,
   tracks: global.tracks,
+  currentObj: global.currentTrack,
+  shuffleIds: global.shuffleIds
  }));
 
  const onTrackClick = (source) => {
@@ -36,7 +39,6 @@ const Main = () => {
     nextId = shuffleIds[0];
    }
    let currentTrack = tracks.find((e) => e.id === nextId);
-   setObj(currentTrack);
    onTrackClick(currentTrack.source);
   } 
   else if (currentObj) {
@@ -75,15 +77,15 @@ const Main = () => {
  useEffect(() => {
   let obj = tracks.find((e) => e.source == currentSrc);
   if (obj) {
-   //localStorage, local state
-   setObj(obj);
-   localStorage.setItem("last_played", JSON.stringify(obj));
-   //mediaSession api
+   if(obj !== currentObj) {
+    disp(setCurrent(obj));
+    localStorage.setItem("last_played", JSON.stringify(obj));
+   }
    if (!audioCt.paused) {
     updateMetadata(obj);
    }
   }
- }, [currentSrc, currentObj, isShuffle, shuffleIds, isPlaying]);
+ }, [currentSrc, isShuffle, shuffleIds, currentObj, isPlaying]);
 
  //localstorage
  useEffect(() => {
@@ -93,29 +95,29 @@ const Main = () => {
    setSrc(source);
    audioCt.src = source;
   }
-
  }, []);
 
  useEffect(() => {
-  const setPlaying = (bool) => {
-   if (isPlaying !== bool) {
-    setPlay(bool);
-   }
-  };
-  audioCt.addEventListener("play", () => setPlaying(true));
-  audioCt.addEventListener("pause", () => setPlaying(false));
+  const setPlay = () => {
+   disp(setPlaying(true));
+  }
+  const setPause = () => {
+   disp(setPlaying(false));
+  }
+  audioCt.addEventListener("play", setPlay);
+  audioCt.addEventListener("pause", setPause);
 
   return () => {
-   audioCt.removeEventListener("play", setPlaying);
-   audioCt.removeEventListener("pause", setPlaying);
+   audioCt.removeEventListener("play", setPlay);
+   audioCt.removeEventListener("pause", setPause);
   };
- }, [isPlaying]);
+ }, []);
 
  useEffect(() => {
   if (isShuffle) {
    let array = Array.from({ length: tracks.length }, (_, i) => i + 1);
    let shuffleIds = shuffle(array);
-   setShufIds(shuffleIds);
+   disp(setShuffleIds(shuffleIds));
   }
  }, [isShuffle]);
 

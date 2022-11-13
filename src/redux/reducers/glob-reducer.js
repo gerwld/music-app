@@ -1,4 +1,15 @@
+const SET_CURRENT = "music-app/glob-reducer/SET_CURRENT";
+const SET_SHUFFLE_IDS = "music-app/glob-reducer/SET_SHUFFLE_IDS";
+const SET_PLAYING = "music-app/glob-reducer/SET_PLAYING";
+
+export const setCurrent = (currentTrack) => ({ type: SET_CURRENT, currentTrack });
+export const setShuffleIds = (ids) => ({ type: SET_SHUFFLE_IDS, ids });
+export const setPlaying = (isPlaying) => ({ type: SET_PLAYING, isPlaying });
+
 let init = {
+ currentTrack: null,
+ shuffleIds: null,
+ isPlaying: false,
  tracks: [
   {
    id: 1,
@@ -79,15 +90,30 @@ let init = {
    cover: "https://raw.githubusercontent.com/gerwld/host-data/master/music_content/album_covers/10.jpeg",
    source: "https://raw.githubusercontent.com/gerwld/host-data/master/music_content/10.mp3",
    duration: "03:42",
-  }
+  },
  ],
 };
 
 const globReducer = (state = init, action) => {
-  switch (action.type) {
-    default:
-      return state;
-  }
-}
+ switch (action.type) {
+  case SET_CURRENT:
+   return {
+    ...state,
+    currentTrack: action.currentTrack
+   };
+  case SET_SHUFFLE_IDS:
+    return {
+      ...state,
+      shuffleIds: action.ids
+    }
+  case SET_PLAYING:
+    return {
+      ...state,
+      isPlaying: action.isPlaying
+    }
+  default:
+   return state;
+ }
+};
 
 export default globReducer;
