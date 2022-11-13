@@ -19,7 +19,7 @@ const Main = () => {
  const onTrackClick = (source) => {
   setSrc(source);
   audioCt.src = source;
-  audioCt.play().catch((e) => 0);
+  audioCt.play();
  };
 
  const onNextTrack = (isShuffle) => {
@@ -73,6 +73,14 @@ const Main = () => {
   if (obj) {
    setObj(obj);
    localStorage.setItem("last_played", JSON.stringify(obj));
+
+   if (!audioCt.paused) {
+    navigator.mediaSession.metadata = new MediaMetadata({
+     title: obj.title,
+     artist: obj.author,
+     artwork: [{ src: obj.cover, sizes: "128x128", type: "image/png" }],
+    });
+   }
   }
  }, [currentSrc]);
 

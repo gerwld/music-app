@@ -11,6 +11,7 @@ const PlayBar = ({ audioCt, isPlaying, currentObj, onNextTrack, onPrevTrack, cre
  const [isRepeat, setRep] = useState(false);
  const [isShuffle, setShuf] = useState(false);
 
+
  const onSetVolume = (e) => {
   let range = e.target.value;
   if ((range && volume !== range) || range === 0) {

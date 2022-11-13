@@ -112,14 +112,17 @@
 }
 
 .cr_cover {
+ width: 60px;
+ max-height: 60px;
  position: relative;
+ overflow: hidden;
 }
 
 .cr_expand {
  position: absolute;
  left: 0;
  right: 0;
- bottom: calc(50% - 0.5em);
+ bottom: calc(50% - 0.75em);
 
  width: 60px;
  padding: 0;
