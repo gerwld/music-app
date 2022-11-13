@@ -3,20 +3,17 @@ import withClickOutside from "../../hoc/withClickOutside";
 import tohms from "../../services/tohms";
 import s from "./s.module.css";
 
-const PlayBar = ({ audioCt, isPlaying, currentObj, onNextTrack, onPrevTrack, createShuffle, initSet }) => {
+const PlayBar = ({ audioCt, isPlaying, currentObj, onNextTrack, onPrevTrack, initSet, isShuffle, setShuf }) => {
  const [volume, setVolume] = useState(60);
  const [progress, setProg] = useState(0);
  const [duration, setDur] = useState(0);
-
  const [isRepeat, setRep] = useState(false);
- const [isShuffle, setShuf] = useState(false);
-
 
  const onSetVolume = (e) => {
   let range = e.target.value;
   if ((range && volume !== range) || range === 0) {
    setVolume(range);
-   localStorage.setItem('vol', range);
+   localStorage.setItem("vol", range);
   }
  };
 
@@ -29,12 +26,12 @@ const PlayBar = ({ audioCt, isPlaying, currentObj, onNextTrack, onPrevTrack, cre
 
  const toggleRepeat = () => {
   setRep(!isRepeat);
-  localStorage.setItem('isRepeat', !isRepeat);
+  localStorage.setItem("isRepeat", !isRepeat);
  };
 
  const toggleShuffle = () => {
   setShuf(!isShuffle);
-  localStorage.setItem('isShuffle', !isShuffle);
+  localStorage.setItem("isShuffle", !isShuffle);
  };
 
  const togglePlay = () => {
@@ -50,30 +47,25 @@ const PlayBar = ({ audioCt, isPlaying, currentObj, onNextTrack, onPrevTrack, cre
  }, [volume]);
 
  useEffect(() => {
-   createShuffle(isShuffle);
- }, [isShuffle]);
-
- useEffect(() => {
   //set cache from lS
   let ct = JSON.parse(localStorage.getItem("last_time"));
-  let vol = localStorage.getItem('vol');
-  let rep = JSON.parse(localStorage.getItem('isRepeat'));
-  let shuff = JSON.parse(localStorage.getItem('isShuffle'));
-  if(ct) {
+  let vol = localStorage.getItem("vol");
+  let rep = JSON.parse(localStorage.getItem("isRepeat"));
+  let shuff = JSON.parse(localStorage.getItem("isShuffle"));
+  if (ct) {
    audioCt.currentTime = ct.point;
    setDur(ct.duration);
   }
   vol && setVolume(vol);
-  typeof rep == 'boolean' && setRep(rep);
-  typeof shuff == 'boolean' && setShuf(shuff);
-
+  typeof rep == "boolean" && setRep(rep);
+  typeof shuff == "boolean" && setShuf(shuff);
 
   const setTiming = () => {
    let dur = audioCt.duration;
    let timing = audioCt.currentTime / (dur * 0.01);
    if (timing && timing !== progress) {
     setProg(timing);
-    localStorage.setItem("last_time", JSON.stringify({point: audioCt.currentTime, duration: audioCt.duration}));
+    localStorage.setItem("last_time", JSON.stringify({ point: audioCt.currentTime, duration: audioCt.duration }));
    }
    if (dur && dur !== duration) {
     setDur(dur);
@@ -89,7 +81,7 @@ const PlayBar = ({ audioCt, isPlaying, currentObj, onNextTrack, onPrevTrack, cre
  useEffect(() => {
   const onEnd = () => {
    if (isRepeat) {
-    audioCt.play().catch(e => 0);
+    audioCt.play().catch((e) => 0);
    } else onNextTrack(isShuffle);
   };
   audioCt.addEventListener("ended", onEnd);
@@ -106,14 +98,16 @@ const PlayBar = ({ audioCt, isPlaying, currentObj, onNextTrack, onPrevTrack, cre
      {/* Show preview if current object exist */}
      {currentObj ? (
       <>
-      <FullCover currentObj={currentObj} />
+       <FullCover currentObj={currentObj} />
        <div className={s.cr_creds}>
         <span>{currentObj.title}</span>
         <span>{currentObj.author}</span>
        </div>
        <button className={s.cr_fav}>add to fav</button>
       </>
-     ) : ""}
+     ) : (
+      ""
+     )}
     </div>
 
     <div className={s.controls}>

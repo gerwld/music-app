@@ -9,6 +9,7 @@ const audioCt = new Audio();
 
 const Main = () => {
  const [isPlaying, setPlay] = useState(false);
+ const [isShuffle, setShuf] = useState(false);
  const [currentSrc, setSrc] = useState(null);
  const [currentObj, setObj] = useState(null);
  const [shuffleIds, setShufIds] = useState(null);
@@ -23,6 +24,7 @@ const Main = () => {
  };
 
  const onNextTrack = (isShuffle) => {
+  console.log(isShuffle);
   //If shuffle - find index of next id, if its bigger than array start from index 0 and play it.
   if (isShuffle && currentObj) {
    let currentId = currentObj.id;
@@ -54,35 +56,34 @@ const Main = () => {
   } else initSet();
  };
 
- const createShuffle = (isShuffle) => {
-  if (isShuffle) {
-   let array = Array.from({ length: tracks.length }, (_, i) => i + 1);
-   let shuffleIds = shuffle(array);
-   setShufIds(shuffleIds);
-  }
- };
-
  const initSet = () => {
   setSrc(tracks[0].source);
   audioCt.src = tracks[0].source;
   audioCt.play().catch((e) => 0);
  };
 
+ const updateMetadata = (currentObj) => {
+  navigator.mediaSession.metadata = new MediaMetadata({
+   title: currentObj.title,
+   artist: currentObj.author,
+   artwork: [{ src: currentObj.cover, sizes: "128x128", type: "image/png" }],
+  });
+  navigator.mediaSession.setActionHandler('previoustrack', () => onPrevTrack(isShuffle));
+  navigator.mediaSession.setActionHandler('nexttrack', () => onNextTrack(isShuffle));
+ }
+
  useEffect(() => {
   let obj = tracks.find((e) => e.source == currentSrc);
   if (obj) {
+   //localStorage, local state
    setObj(obj);
    localStorage.setItem("last_played", JSON.stringify(obj));
-
+   //mediaSession api
    if (!audioCt.paused) {
-    navigator.mediaSession.metadata = new MediaMetadata({
-     title: obj.title,
-     artist: obj.author,
-     artwork: [{ src: obj.cover, sizes: "128x128", type: "image/png" }],
-    });
+    updateMetadata(obj);
    }
   }
- }, [currentSrc]);
+ }, [currentSrc, currentObj, isShuffle, shuffleIds, isPlaying]);
 
  //localstorage
  useEffect(() => {
@@ -92,6 +93,7 @@ const Main = () => {
    setSrc(source);
    audioCt.src = source;
   }
+
  }, []);
 
  useEffect(() => {
@@ -109,6 +111,14 @@ const Main = () => {
   };
  }, [isPlaying]);
 
+ useEffect(() => {
+  if (isShuffle) {
+   let array = Array.from({ length: tracks.length }, (_, i) => i + 1);
+   let shuffleIds = shuffle(array);
+   setShufIds(shuffleIds);
+  }
+ }, [isShuffle]);
+
  return (
   <div>
    <Header />
@@ -119,8 +129,9 @@ const Main = () => {
     currentObj={currentObj}
     onNextTrack={onNextTrack}
     onPrevTrack={onPrevTrack}
-    createShuffle={createShuffle}
     initSet={initSet}
+    isShuffle={isShuffle}
+    setShuf={setShuf}
    />
   </div>
  );
