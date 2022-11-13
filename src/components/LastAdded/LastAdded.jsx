@@ -1,6 +1,6 @@
 import React from 'react'
-import ListElement from '../ListElement/ListElement';
-import LoaderScreen from '../LoaderScreen/LoaderScreen';
+import ListElement from 'components/ListElement/ListElement';
+import LoaderScreen from 'components/LoaderScreen/LoaderScreen';
 
 const LastAdded = ({onTrackClick, tracks, currentSrc}) => {
 

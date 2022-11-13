@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import hideImg from "../../services/hideImg";
+import hideImg from "services/hideImg";
 import s from "./ListElement.module.css";
 
 const ListElement = ({ author, title, id, cover, duration, album, onTrackClick, source, currentSrc }) => {

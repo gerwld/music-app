@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import withClickOutside from "../../hoc/withClickOutside";
-import tohms from "../../services/tohms";
+import withClickOutside from "hoc/withClickOutside";
+import tohms from "services/tohms";
 import s from "./s.module.css";
 
 const PlayBar = ({ audioCt, isPlaying, currentObj, onNextTrack, onPrevTrack, initSet, isShuffle, setShuf }) => {

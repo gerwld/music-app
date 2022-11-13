@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import shuffle from "../../services/shuffle";
-import Header from "../Header/Header";
-import LastAdded from "../LastAdded/LastAdded";
-import PlayBar from "../PlayBar/PlayBar";
+import shuffle from "services/shuffle";
+
+import Header from "components/Header/Header";
+import LastAdded from "components/LastAdded/LastAdded";
+import PlayBar from "components/PlayBar/PlayBar";
 
 const audioCt = new Audio();
 
@@ -20,11 +21,10 @@ const Main = () => {
  const onTrackClick = (source) => {
   setSrc(source);
   audioCt.src = source;
-  audioCt.play().then(updateMetadata(currentObj));
+  audioCt.play().then(updateMetadata(currentObj)).catch(e => console.log(e));
  };
 
  const onNextTrack = (isShuffle) => {
-  console.log(isShuffle);
   //If shuffle - find index of next id, if its bigger than array start from index 0 and play it.
   if (isShuffle && currentObj) {
    let currentId = currentObj.id;
