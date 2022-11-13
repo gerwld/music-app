@@ -20,7 +20,7 @@ const Main = () => {
  const onTrackClick = (source) => {
   setSrc(source);
   audioCt.src = source;
-  audioCt.play();
+  audioCt.play().then(updateMetadata(currentObj));
  };
 
  const onNextTrack = (isShuffle) => {
