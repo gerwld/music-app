@@ -18,8 +18,11 @@ export function withPlaybar(Children) {
    
     const onScrub = (e) => {
      let range = e.target.value;
-     if ((range && progress !== range) || range === 0) {
-      audioCt.currentTime = duration * range * 0.01;
+     if ((range && progress !== range) || range == 0) {
+      let res = duration * range * 0.01;
+      audioCt.currentTime = res > 5 ? res : 1;
+     } else if(range >= 1) {
+      audioCt.currentTime = 0;
      }
     };
    
