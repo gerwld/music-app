@@ -2,7 +2,7 @@
 .gap,
 .playbar_content {
  width: 100%;
- height: 86px;
+ height: 96px;
 }
 
 .playbar {
@@ -25,13 +25,6 @@
 }
 
 
-.playbar .play_btn > svg {
-  height: 80%;
-  font-size: 40px;
-  width: 40px;
-  height: 40px;
-  color: #fff;
-}
 
 .playbar_content {
   display: flex;
@@ -50,9 +43,9 @@ overflow: hidden;
 }
 
 .current img {
- flex: 0 0 60px;
- width: 60px;
- height: 60px;
+ flex: 0 0 70px;
+ width: 70px;
+ height: 70px;
  overflow: hidden;
  background-color: #fff;
  object-fit: cover;
@@ -87,7 +80,7 @@ overflow: hidden;
 
 .current, 
 .volume {
-  flex: 0 0 26%;
+  flex: 0 0 24%;
  display: flex;
  align-items: center;
 }
@@ -142,8 +135,20 @@ overflow: hidden;
   background-color: transparent;
 }
 
-.group button svg {
+.cs_top .group button > svg {
+  font-size: 24px;
+  width: 24px;
+  height: 24px;
   transition: transform 0.1s ease-in-out;
+}
+
+
+.cs_top button.play_btn > svg {
+  height: 80%;
+  font-size: 45px;
+  width: 45px;
+  height: 45px;
+  color: #fff;
 }
 
 .group button:hover svg {

@@ -1,6 +1,6 @@
 :root {
   font-family: 'Roboto', sans-serif;
-  font-size: 14px;
+  font-size: 15.5px;
   line-height: 24px;
   font-weight: 400;
 
@@ -16,7 +16,7 @@
 
   --main-color: #181818;
   --sec-color: #2693d7;
-  --vp-header: 60px;
+  --vp-header: 65px;
 }
 
 a {
@@ -66,7 +66,7 @@ button:hover {
 
 .content_wrapper {
   width: 100%;
-  max-width: 1200px;
+  max-width: 1320px;
   margin: 0 auto;
 }
 
@@ -76,9 +76,9 @@ button:hover {
 
 button > svg {
   height: 80%;
-  font-size: 17px;
-  width: 17px;
-  height: 17px;
+  font-size: 19px;
+  width: 19px;
+  height: 19px;
   color: #fff;
 }
 
@@ -99,7 +99,7 @@ input[type=range]:focus {
 }
 input[type=range]::-webkit-slider-runnable-track {
   width: 100%;
-  height: 6px;
+  height: 7px;
   cursor: pointer;
   background: #3071A9;
   border-radius: 3px;
@@ -108,8 +108,8 @@ input[type=range]::-webkit-slider-runnable-track {
 input[type=range]::-webkit-slider-thumb {
   box-shadow: 1px 1px 1px #000000;
   border: 1px solid #000000;
-  height: 7px;
-  width: 7px;
+  height: 8px;
+  width: 8px;
   border-radius: 10px;
   background: #FFFFFF;
   cursor: pointer;

@@ -3,6 +3,7 @@
  position: fixed;
  background-color: var(--main-color);
  box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.249);
+ z-index: 100;
 }
 
 .header_content {
