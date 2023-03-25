@@ -1,102 +1,33 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import withClickOutside from "hoc/withClickOutside";
 import tohms from "services/tohms";
 import s from "./s.module.css";
+import { withPlaybar } from "hoc/withPlayBar";
 
-const PlayBar = ({ audioCt, isPlaying, currentObj, onNextTrack, onPrevTrack, initSet, isShuffle, setShuf }) => {
- const [volume, setVolume] = useState(60);
- const [progress, setProg] = useState(0);
- const [duration, setDur] = useState(0);
- const [isRepeat, setRep] = useState(false);
-
- const onSetVolume = (e) => {
-  let range = e.target.value;
-  if ((range && volume !== range) || range === 0) {
-   setVolume(range);
-   localStorage.setItem("vol", range);
-  }
- };
-
- const onScrub = (e) => {
-  let range = e.target.value;
-  if ((range && progress !== range) || range === 0) {
-   audioCt.currentTime = duration * range * 0.01;
-  }
- };
-
- const toggleRepeat = () => {
-  setRep(!isRepeat);
-  localStorage.setItem("isRepeat", !isRepeat);
- };
-
- const toggleShuffle = () => {
-  setShuf(!isShuffle);
-  localStorage.setItem("isShuffle", !isShuffle);
- };
-
- const togglePlay = () => {
-  if (currentObj) {
-   if (audioCt.paused && audioCt.src) {
-    audioCt.play();
-   } else audioCt.pause();
-  } else initSet();
- };
-
- useEffect(() => {
-  audioCt.volume = volume / 100;
- }, [volume]);
-
- useEffect(() => {
-  //set cache from lS
-  let ct = JSON.parse(localStorage.getItem("last_time"));
-  let vol = localStorage.getItem("vol");
-  let rep = JSON.parse(localStorage.getItem("isRepeat"));
-  let shuff = JSON.parse(localStorage.getItem("isShuffle"));
-  if (ct) {
-   audioCt.currentTime = ct.point;
-   setDur(ct.duration);
-  }
-  vol && setVolume(vol);
-  typeof rep == "boolean" && setRep(rep);
-  typeof shuff == "boolean" && setShuf(shuff);
-
-  const setTiming = () => {
-   let dur = audioCt.duration;
-   let timing = audioCt.currentTime / (dur * 0.01);
-   if (timing && timing !== progress) {
-    setProg(timing);
-    localStorage.setItem("last_time", JSON.stringify({ point: audioCt.currentTime, duration: audioCt.duration }));
-   }
-   if (dur && dur !== duration) {
-    setDur(dur);
-   }
-  };
-  audioCt.addEventListener("timeupdate", setTiming);
-
-  return () => {
-   audioCt.removeEventListener("timeupdate", setTiming);
-  };
- }, []);
-
- useEffect(() => {
-  const onEnd = () => {
-   if (isRepeat) {
-    audioCt.play().catch((e) => 0);
-   } else onNextTrack(isShuffle);
-  };
-  audioCt.addEventListener("ended", onEnd);
-
-  return () => {
-   audioCt.removeEventListener("ended", onEnd);
-  };
- }, [isRepeat, isShuffle, currentObj]);
-
+const PlayBar = (props) => {
+  const { 
+    isPlaying, 
+    currentObj, 
+    onNextTrack, 
+    onPrevTrack, 
+    isShuffle, 
+    onSetVolume, 
+    onScrub, 
+    toggleRepeat, 
+    toggleShuffle, 
+    togglePlay, 
+    isRepeat, 
+    progress, 
+    duration, 
+    volume 
+  } = props;
+  
  return (
   <>
    <div className={s.playbar}>
     <div className={s.current}>
      {/* Show preview if current object exist */}
-     {currentObj ? (
+     {currentObj ? 
       <>
        <FullCover currentObj={currentObj} />
        <div className={s.cr_creds}>
@@ -105,9 +36,7 @@ const PlayBar = ({ audioCt, isPlaying, currentObj, onNextTrack, onPrevTrack, ini
        </div>
        <button className={s.cr_fav}>add to fav</button>
       </>
-     ) : (
-      ""
-     )}
+     : "" }
     </div>
 
     <div className={s.controls}>
@@ -142,16 +71,22 @@ const FullCover = withClickOutside(({ currentObj, refE, setShow, isShow }) => {
   <div ref={refE}>
    <div className={s.cr_cover}>
     <img src={currentObj.cover} alt={`${currentObj.title} - ${currentObj.author}`} />
-    <button onClick={() => setShow(!isShow)} className={s.cr_expand}>expand</button>
+    <button onClick={() => setShow(!isShow)} className={s.cr_expand}>
+     expand
+    </button>
    </div>
-   {isShow ? <div className={s.full_cover}>
-    <div className={s.fc_wrapper}>
-     <button onClick={() => setShow(false)}>close</button>
-     <img src={currentObj.cover} alt={`${currentObj.title} - ${currentObj.author}`} />
+
+   {isShow ? 
+    <div className={s.full_cover}>
+     <div className={s.fc_wrapper}>
+      <button onClick={() => setShow(false)}>close</button>
+      <img src={currentObj.cover} alt={`${currentObj.title} - ${currentObj.author}`} />
+     </div>
     </div>
-   </div> : ''}
+   : "" }
+   
   </div>
  );
 });
 
-export default PlayBar;
+export default withPlaybar(PlayBar);
