@@ -1,7 +1,8 @@
 .playbar,
-.gap {
+.gap,
+.playbar_content {
  width: 100%;
- height: 90px;
+ height: 86px;
 }
 
 .playbar {
@@ -10,19 +11,42 @@
  left: 0;
  right: 0;
 
- display: flex;
- align-items: center;
- justify-content: space-between;
- padding: 0 30px;
-
  color: #fff;
  background-color: var(--main-color);
  box-sizing: border-box;
 }
 
+.playbar button > svg {
+  height: 80%;
+  font-size: 22px;
+  width: 22px;
+  height: 22px;
+  color: #fff;
+}
+
+
+.playbar .play_btn > svg {
+  height: 80%;
+  font-size: 40px;
+  width: 40px;
+  height: 40px;
+  color: #fff;
+}
+
+.playbar_content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 30px;
+}
+
 .cr_creds {
  display: flex;
  flex-direction: column;
+}
+.cr_cover {
+border-radius: 5px;
+overflow: hidden;
 }
 
 .current img {
@@ -32,6 +56,7 @@
  overflow: hidden;
  background-color: #fff;
  object-fit: cover;
+ transform: scale(1.01);
 }
 
 .cr_fav {
@@ -40,6 +65,18 @@
 
 .cr_creds {
  margin-left: 15px;
+ line-height: 120%;
+}
+
+.cr_creds span:nth-child(1) {
+  font-size: 0.92rem;
+  font-weight: 500;
+}
+
+.cr_creds span:nth-child(2) {
+  display: block;
+  margin-top: 5px;
+  font-size: 0.8rem;
 }
 
 .controls {
@@ -50,9 +87,15 @@
 
 .current, 
 .volume {
+  flex: 0 0 26%;
  display: flex;
  align-items: center;
- flex: 0 0 26%;
+}
+
+.volume_content {
+  display: flex;
+  align-items: center;
+  width: 170px;
 }
 
 .volume {
@@ -60,7 +103,20 @@
 }
 
 .volume span {
+  font-size: 20px;
  margin-right: 10px;
+ transform: translateY(3px);
+}
+
+.cs_bottom {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cs_bottom span {
+  font-size: 0.8rem;
+  padding: 0 10px;
 }
 
 .controls,
@@ -76,12 +132,36 @@
  justify-content: center;
 }
 
+.cs_top .group {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.group button:hover {
+  background-color: transparent;
+}
+
+.group button svg {
+  transition: transform 0.1s ease-in-out;
+}
+
+.group button:hover svg {
+  transform: scale(1.10);
+}
+
+.group button:active svg {
+  transform: scale(1.1) translateY(1px);
+  transition: 0s;
+}
+
 .cs_timeline {
  display: flex;
  justify-content: space-between;
  margin-top: -5px;
 
- font-size: 0.8em;
+ font-size: 0.8rem;
+ line-height: 1em;
 }
 
 .full_cover {

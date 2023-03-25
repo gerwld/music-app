@@ -1,19 +1,27 @@
 .header {
  width: 100%;
  position: fixed;
-
- display: flex;
- align-items: center;
- justify-content: center;
-
  background-color: var(--main-color);
  box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.249);
 }
 
+.header_content {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 0 20px;
+  height: 100%;
+}
+
+
 .header,
 .gap {
- height: 70px;
+ height: var(--vp-header);
  box-sizing: border-box;
+}
+
+.gap {
+  display: block;
 }
 
 .title {

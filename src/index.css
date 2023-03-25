@@ -1,12 +1,12 @@
 :root {
-  font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
-  font-size: 16px;
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
   line-height: 24px;
   font-weight: 400;
 
   color-scheme: light dark;
-  color: #303234;
-  background-color: #ffffff;
+  color: #ffffff;
+  background-color: #121212;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -14,7 +14,9 @@
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
 
-  --main-color: #34568b;
+  --main-color: #181818;
+  --sec-color: #2693d7;
+  --vp-header: 60px;
 }
 
 a {
@@ -30,6 +32,7 @@ body {
   margin: 0;
   min-width: 320px;
   min-height: 100vh;
+  overflow-x: hidden;
 }
 
 h1 {
@@ -38,6 +41,9 @@ h1 {
 }
 
 button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
@@ -49,15 +55,33 @@ button {
   font-size: 0.9rem;
 
   color: #000;
-  background-color: #ffffff;
-  border: 1px solid #c8cfd2;
+  background-color: transparent;
+  border: none;
   border-radius: 5px;
 }
 
+button:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
 .content_wrapper {
-  max-width: 1000px;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .conent {
   padding: 10px 0;
+}
+
+button > svg {
+  height: 80%;
+  font-size: 17px;
+  width: 17px;
+  height: 17px;
+  color: #fff;
+}
+
+button.active_btn > svg {
+  color: var(--sec-color);
 }
