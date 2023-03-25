@@ -65,13 +65,15 @@ const withAudio = (Component) => {
   };
  
   const updateMetadata = (currentObj) => {
-   navigator.mediaSession.metadata = new MediaMetadata({
-    title: currentObj.title,
-    artist: currentObj.author,
-    artwork: [{ src: currentObj.cover, sizes: "128x128", type: "image/png" }],
-   });
-   navigator.mediaSession.setActionHandler("previoustrack", () => onPrevTrack(isShuffle));
-   navigator.mediaSession.setActionHandler("nexttrack", () => onNextTrack(isShuffle));
+   if (typeof MediaMetadata !== 'undefined') {
+    navigator.mediaSession.metadata = new MediaMetadata({
+     title: currentObj.title,
+     artist: currentObj.author,
+     artwork: [{ src: currentObj.cover, sizes: "128x128", type: "image/png" }],
+    });
+    navigator.mediaSession.setActionHandler("previoustrack", () => onPrevTrack(isShuffle));
+    navigator.mediaSession.setActionHandler("nexttrack", () => onNextTrack(isShuffle));
+   }
   };
  
   useEffect(() => {
