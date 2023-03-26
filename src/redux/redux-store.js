@@ -1,4 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
+import initialState from "./preloaded/preloadedState";
 import globReducer from "./reducers/glob-reducer";
 
 let reducer = {
@@ -6,6 +7,7 @@ let reducer = {
 };
 
 const store = configureStore({reducer,
- devTools: process.env.NODE_ENV !== 'production'});
+  preloadedState: initialState,
+ });
 
 export default store;

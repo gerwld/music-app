@@ -4,13 +4,11 @@ import tohms from "services/tohms";
 import s from "./s.module.css";
 import { withPlaybar } from "hoc/withPlayBar";
 
-import {AiFillPlayCircle, AiFillPauseCircle, AiOutlineStepBackward, AiOutlineStepForward, AiOutlineHeart} from 'react-icons/ai';
-import {IoShuffleOutline, IoRepeat, IoVolumeHighOutline,
-  IoVolumeMediumOutline,
-  IoVolumeLowOutline,
-  IoVolumeOffOutline} from 'react-icons/io5';
-
-  import {HiPlayCircle, HiPauseCircle, HiBackward, HiForward} from 'react-icons/hi2';
+import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
+import { IoShuffleOutline, IoRepeat, IoVolumeHighOutline, IoVolumeMediumOutline, IoVolumeLowOutline, IoVolumeOffOutline } from "react-icons/io5";
+import { HiPlayCircle, HiPauseCircle, HiBackward, HiForward } from "react-icons/hi2";
+import withLikes from "hoc/withLikes";
+import { compose } from "redux";
 
 const PlayBar = (props) => {
   const { 
@@ -27,8 +25,15 @@ const PlayBar = (props) => {
     isRepeat, 
     progress, 
     duration, 
-    volume 
+    volume,
+    getFavoriteStateById,
+    setTrackFromOrToFav
   } = props;
+  const isFavorite = getFavoriteStateById(currentObj?.id)
+
+  const setTrackFromOrToFavCallback = () => {
+    setTrackFromOrToFav(currentObj?.id, isFavorite)
+  }
   
  return (
   <>
@@ -43,7 +48,7 @@ const PlayBar = (props) => {
         <span>{currentObj.title}</span>
         <span>{currentObj.author}</span>
        </div>
-       <button className={s.cr_fav}><AiOutlineHeart/></button>
+       <button className={s.cr_fav} onClick={setTrackFromOrToFavCallback}> {isFavorite ? <AiFillHeart/> : <AiOutlineHeart/>}</button>
       </>
      : "" }
     </div>
@@ -105,4 +110,4 @@ const FullCover = withClickOutside(({ currentObj, refE, setShow, isShow }) => {
  );
 });
 
-export default withPlaybar(PlayBar);
+export default compose(withPlaybar, withLikes)(PlayBar);

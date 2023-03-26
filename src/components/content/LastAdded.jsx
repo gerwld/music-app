@@ -3,8 +3,9 @@ import ListElement from "components/content/ListElement";
 import LoaderScreen from "components/LoaderScreen/LoaderScreen";
 import { MdAccessTime } from "react-icons/md";
 import s from "./s.module.css";
+import withLikes from "hoc/withLikes";
 
-const LastAdded = ({ onTrackClick, tracks, currentSrc }) => {
+const LastAdded = ({ onTrackClick, tracks, currentSrc, getFavoriteStateById, setTrackFromOrToFav }) => {
  if (tracks) {
   return (
    <div className="conent">
@@ -21,11 +22,11 @@ const LastAdded = ({ onTrackClick, tracks, currentSrc }) => {
     </div>
 
     {tracks?.map((e) => (
-     <ListElement key={e.id + e.source} {...e} onTrackClick={onTrackClick} currentSrc={currentSrc} />
+     <ListElement key={e.id + e.source} {...e} onTrackClick={onTrackClick} currentSrc={currentSrc} isFavorite={ getFavoriteStateById(e.id)} setTrackFromOrToFav={setTrackFromOrToFav} />
     ))}
    </div>
   );
  } else return <LoaderScreen />;
 };
 
-export default LastAdded;
+export default withLikes(LastAdded);

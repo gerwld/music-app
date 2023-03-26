@@ -1,15 +1,20 @@
 const SET_CURRENT = "music-app/glob-reducer/SET_CURRENT";
 const SET_SHUFFLE_IDS = "music-app/glob-reducer/SET_SHUFFLE_IDS";
 const SET_PLAYING = "music-app/glob-reducer/SET_PLAYING";
+const SET_FAVORITE = "music-app/glob-reducer/SET_FAVORITE";
+const DEL_FAVORITE = "music-app/glob-reducer/DEL_FAVORITE";
 
 export const setCurrent = (currentTrack) => ({ type: SET_CURRENT, currentTrack });
 export const setShuffleIds = (ids) => ({ type: SET_SHUFFLE_IDS, ids });
 export const setPlaying = (isPlaying) => ({ type: SET_PLAYING, isPlaying });
+export const setFavorite = (id) => ({ type: SET_FAVORITE, id });
+export const delFavorite = (id) => ({ type: DEL_FAVORITE, id });
 
 let init = {
  currentTrack: null,
  shuffleIds: null,
  isPlaying: false,
+ favorites: [],
  tracks: [
   {
    id: 1,
@@ -143,6 +148,16 @@ const globReducer = (state = init, action) => {
       ...state,
       isPlaying: action.isPlaying
     }
+  case SET_FAVORITE:
+    return {
+      ...state,
+      favorites: [...state.favorites, action.id]
+    }
+  case DEL_FAVORITE:
+  return {
+    ...state,
+    favorites: [...state.favorites].filter((e) => e !== action.id)
+  }
   default:
    return state;
  }
