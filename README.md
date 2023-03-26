@@ -1,5 +1,5 @@
 # music-app
-ReactJS & Redux Music player. Feel free to use it, or contribute.
+ReactJS & Redux Music player. Feel free to use it, change, or contribute.
 ### Preview:
 <img width="900" alt="image" src="https://user-images.githubusercontent.com/47056812/227744563-8b3079c4-7d2c-4253-bac1-7e229560e3bb.png">
 
