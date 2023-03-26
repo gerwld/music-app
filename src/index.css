@@ -33,6 +33,16 @@ body {
   min-width: 320px;
   min-height: 100vh;
   overflow-x: hidden;
+  animation: appear 0.4s ease-in-out both;
+}
+
+@keyframes appear {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 h1 {

@@ -43,13 +43,12 @@ overflow: hidden;
 }
 
 .current img {
- flex: 0 0 70px;
- width: 70px;
- height: 70px;
+ width: 100%;
+ height: 100%;
  overflow: hidden;
  background-color: #fff;
  object-fit: cover;
- transform: scale(1.01);
+ transform: scale(1);
 }
 
 .cr_fav {
@@ -172,7 +171,7 @@ overflow: hidden;
 .full_cover {
  position: fixed;
  left: 0;
- bottom: 90px;
+ bottom: 96px;
 
  width: 300px;
  height: 300px;
@@ -194,6 +193,10 @@ overflow: hidden;
  position: absolute;
  top: 0;
  right: 0;
+ z-index: 10;
+ background-color: rgba(255, 255, 255, 0.5);
+ border: 1px solid white;
+ border-radius: 0;
 }
 
 .cr_cover {
@@ -207,15 +210,18 @@ overflow: hidden;
  position: absolute;
  left: 0;
  right: 0;
- bottom: calc(50% - 0.75em);
+ bottom: 50%;
+ transform: translateY(50%);
 
- width: 60px;
+ width: 100%;
  padding: 0;
+ margin: 0;
 
  text-align: center;
  font-size: 1em;
  line-height: 1.5em;
  border: 1px solid #000;
+ border-radius: 0;
  background-color: #fff;
  opacity: 0;
 }
@@ -223,6 +229,8 @@ overflow: hidden;
 .cr_expand:hover,
 .cr_cover:hover .cr_expand {
  opacity: 1;
+ background-color: #fff;
+
 }
 
 .cr_expand:active {
