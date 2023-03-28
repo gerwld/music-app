@@ -1,30 +1,39 @@
 .playbar,
 .gap,
 .playbar_content {
- width: 100%;
- height: 96px;
+  width: 100%;
+  height: 96px;
+}
+
+.gap_adjust {
+  padding-bottom: var(--vp-playbar-mobile);
+}
+
+.cs_btgroup {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .playbar {
- position: fixed;
- bottom: 0;
- left: 0;
- right: 0;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
 
- color: #fff;
- background-color: var(--main-color);
- box-sizing: border-box;
+  padding: 0 20px;
+
+  color: #fff;
+  background-color: var(--main-color);
+  box-sizing: border-box;
 }
 
-.playbar button > svg {
+.playbar button svg {
   height: 80%;
   font-size: 22px;
-  width: 22px;
-  height: 22px;
   color: #fff;
 }
-
-
 
 .playbar_content {
   display: flex;
@@ -34,30 +43,31 @@
 }
 
 .cr_creds {
- display: flex;
- flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
+
 .cr_cover {
-border-radius: 5px;
-overflow: hidden;
+  border-radius: 5px;
+  overflow: hidden;
 }
 
 .current img {
- width: 100%;
- height: 100%;
- overflow: hidden;
- background-color: #fff;
- object-fit: cover;
- transform: scale(1);
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background-color: #fff;
+  object-fit: cover;
+  transform: scale(1);
 }
 
 .cr_fav {
- margin-left: 10px;
+  margin-left: 10px;
 }
 
 .cr_creds {
- margin-left: 15px;
- line-height: 120%;
+  margin-left: 15px;
+  line-height: 120%;
 }
 
 .cr_creds span:nth-child(1) {
@@ -72,16 +82,16 @@ overflow: hidden;
 }
 
 .controls {
- display: flex;
- flex-direction: column;
- flex: 0 0 49%;
+  display: flex;
+  flex-direction: column;
+  flex: 0 0 49%;
 }
 
-.current, 
+.current,
 .volume {
   flex: 0 0 24%;
- display: flex;
- align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 .volume_content {
@@ -91,13 +101,13 @@ overflow: hidden;
 }
 
 .volume {
- justify-content: flex-end;
+  justify-content: flex-end;
 }
 
 .volume span {
   font-size: 20px;
- margin-right: 10px;
- transform: translateY(3px);
+  margin-right: 10px;
+  transform: translateY(3px);
 }
 
 .cs_bottom {
@@ -113,15 +123,15 @@ overflow: hidden;
 
 .controls,
 .cs_bottom input {
- flex: 0 0 400px;
- width: 400px;
+  flex: 0 0 400px;
+  width: 400px;
 }
 
 .cs_top {
- flex: 1;
- display: flex;
- align-items: center;
- justify-content: center;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .cs_top .group {
@@ -134,19 +144,15 @@ overflow: hidden;
   background-color: transparent;
 }
 
-.cs_top .group button > svg {
+.cs_top .group svg {
   font-size: 24px;
-  width: 24px;
-  height: 24px;
   transition: transform 0.1s ease-in-out;
 }
 
 
-.cs_top button.play_btn > svg {
+.cs_top .play_btn svg {
   height: 80%;
   font-size: 45px;
-  width: 45px;
-  height: 45px;
   color: #fff;
 }
 
@@ -160,79 +166,312 @@ overflow: hidden;
 }
 
 .cs_timeline {
- display: flex;
- justify-content: space-between;
- margin-top: -5px;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 5px;
 
- font-size: 0.8rem;
- line-height: 1em;
+  font-size: 0.8rem;
+  line-height: 1em;
 }
 
 .full_cover {
- position: fixed;
- left: 0;
- bottom: 96px;
+  position: fixed;
+  left: 0;
+  bottom: 96px;
 
- width: 300px;
- height: 300px;
- background-color: #fff;
- border: 1px solid var(--main-color);
+  width: 300px;
+  height: 300px;
+  background-color: #fff;
+  border: 1px solid var(--main-color);
 }
 
 .full_cover img {
- width: 286px;
- height: 286px;
- margin: 7px;
+  width: 286px;
+  height: 286px;
+  margin: 7px;
 }
 
 .fc_wrapper {
- position: relative;
+  position: relative;
 }
 
 .fc_wrapper button {
- position: absolute;
- top: 0;
- right: 0;
- z-index: 10;
- background-color: rgba(255, 255, 255, 0.5);
- border: 1px solid white;
- border-radius: 0;
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 10;
+  background-color: rgba(255, 255, 255, 0.5);
+  border: 1px solid white;
+  border-radius: 0;
 }
 
 .cr_cover {
- width: 60px;
- max-height: 60px;
- position: relative;
- overflow: hidden;
+  width: 60px;
+  max-height: 60px;
+  position: relative;
+  overflow: hidden;
 }
 
 .cr_expand {
- position: absolute;
- left: 0;
- right: 0;
- bottom: 50%;
- transform: translateY(50%);
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 50%;
+  transform: translateY(50%);
 
- width: 100%;
- padding: 0;
- margin: 0;
+  width: 100%;
+  padding: 0;
+  margin: 0;
 
- text-align: center;
- font-size: 1em;
- line-height: 1.5em;
- border: 1px solid #000;
- border-radius: 0;
- background-color: #fff;
- opacity: 0;
+  text-align: center;
+  font-size: 1em;
+  line-height: 1.5em;
+  border: 1px solid #000;
+  border-radius: 0;
+  background-color: #fff;
+  opacity: 0;
 }
 
 .cr_expand:hover,
 .cr_cover:hover .cr_expand {
- opacity: 1;
- background-color: #fff;
+  opacity: 1;
+  background-color: #fff;
 
 }
 
 .cr_expand:active {
- background-color: #e4dfdf;
+  background-color: #e4dfdf;
+}
+
+.playbar_fixed {
+  position: fixed;
+  width: calc(100vw - 10px);
+  height: var(--vp-playbar-mobile);
+  bottom: 5px;
+  left: 5px;
+  right: 5px;
+
+  display: flex;
+  align-items: center;
+
+  background-color: #455061;
+  border-radius: 10px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.playbar_fixed_cover {
+  width: var(--vp-playbar-mobile);
+  height: 100%;
+  padding: 12px 9px 8px;
+  box-sizing: border-box;
+  user-select: none;
+  pointer-events: none;
+}
+
+.playbar_fixed_cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 8px;
+}
+
+.play_btn__mobile {
+  width: 55px;
+  height: 55px;
+  margin: 0 15px 0 auto
+}
+
+.play_btn__mobile svg {
+  font-size: 45px;
+}
+
+.playbar_fullscreen {
+  position: fixed;
+  height: 100vh;
+  height: var(--vh-100);
+  min-height: 360px;
+  width: 100vw;
+
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: space-around;
+
+  padding: 10px 15px 0;
+  left: 0;
+  right: 0;
+  top: 100%;
+  bottom: 0;
+
+  background: #44a08d; /* fallback for old browsers */
+  background: -webkit-linear-gradient(to bottom, #44a08d, #093637); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to bottom, #44a08d, #093637); 
+  z-index: 100;
+  box-sizing: border-box;
+  overflow-y: scroll;
+
+  transition: top 0.2s ease-in-out;
+}
+
+.playbar__opened {
+  top: 0;
+}
+
+.playbar_full_cover {
+  flex: 0 1 50vh;
+  padding: 15px;
+  height: 50vh;
+  min-height: 230px;
+}
+
+.playbar_full_cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.playbar_nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.playbar_nav button {
+  width: 46px;
+  height: 46px;
+}
+
+.playbar_nav svg {
+  font-size: 25px;
+}
+
+.touch_group {
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+
+
+
+
+
+
+@media only screen and (max-width: 1024px) {
+
+  .controls,
+  .cs_bottom input {
+    flex: 0 0 350px;
+    width: 350px;
+  }
+
+  .volume_content {
+    width: 140px;
+  }
+
+}
+
+@media only screen and (max-width: 880px) {
+
+  .cr_cover {
+    width: 50px;
+    max-height: 50px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cr_fav {
+    margin: 0 0 0 5px;
+  }  
+
+  .cr_creds {
+    margin-left: 10px;
+    line-height: 125%;
+  }
+
+  .cr_creds:nth-child(1) {
+    font-size: 0.8rem;
+    margin-bottom: 5px;
+  }
+
+  .cr_creds:nth-child(2) {
+    font-size: 0.7rem;
+  }
+
+  .controls,
+  .cs_bottom input {
+    flex: 0 0 300px;
+    width: 300px;
+  }
+
+  .volume_content {
+    width: 120px;
+  }
+
+  .cs_bottom span {
+    font-size: 0.7rem;
+    padding: 0 6px;
+}
+
+}
+
+@media only screen and (max-width: 768px) {
+  .controls,
+  .cs_bottom input {
+    flex: 1;
+    width: 100%;
+  }
+
+  .cr_creds {
+    /* flex: 1; */
+    margin: 10px 0;
+  }
+
+  .cs_top {
+    flex: 0;
+  }
+
+  .playbar_fullscreen .cr_creds span:nth-child(1) {
+    font-size: 24px;
+  }
+
+ .playbar_fullscreen .cr_creds span:nth-child(2) {
+    margin: 0.5em 0;
+    font-size: 18px;
+  }
+
+  .playbar_fullscreen button {
+    width: 50px;
+    height: 50px;
+  }
+
+  .cs_top .group svg {
+    font-size: 32px;
+    transition: transform 0.1s ease-in-out;
+  }
+
+  .cs_top .play_btn {
+    display: flex;
+    padding: 0;
+    border-radius: 50%;
+  }
+  .cs_top .play_btn svg {
+    font-size: 102px;
+    line-height: 100%;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.1s ease-in-out;
+  }
+}
+
+@media only screen and (max-width: 425px) {
+
+  .cs_timeline {
+    margin-top: 8px;
+    font-size: 0.7rem;
+  }
+
+  .cr_creds span:nth-child(2) {
+    color: rgba(255, 255, 255, 0.6);
+  }
 }

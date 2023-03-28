@@ -90,7 +90,7 @@
 
 .isplaying:hover,
 .isplaying {
- background-color: #45464b;
+ background-color: rgba(69, 70, 74, 0.478);
 }
 
 .author_creds span {
@@ -117,4 +117,85 @@
 
 .play_btn svg {
   transform: translateX(-3px);
+}
+
+@media only screen and (max-width: 1024px) {
+  .elem {
+    padding-right: 10px;
+  }
+}
+
+
+
+@media only screen and (max-width: 768px) {
+  .album,
+  .elem_header {
+    display: none;
+  }
+
+  .main {
+    flex: 1;
+   }
+
+  .dur {
+    flex: 0.5;
+    text-align: center;
+  }
+}
+
+@media only screen and (max-width: 535px) {
+.dur {
+  display: none;
+}
+
+.author_creds {
+  flex:1;
+}
+}
+
+
+@media only screen and (max-width: 535px) { 
+  .main {
+    flex: 1;
+  }
+
+  .cover {
+    flex: 0 0 40px;
+    width: 40px;
+    height: 40px;
+  }
+
+  .author_creds {
+    flex: 1;
+    max-width: 40vw;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+
+  .author_creds {
+    flex: 0 1 70%;
+  }
+
+  .elem button {
+    flex: 0 0 40px;
+    width: 40px;
+    height: 40px;
+    margin: 0;
+  }
+
+  .elem button:nth-last-child(2) {
+    margin-left: auto;
+    margin-right: 3px;
+  }
+}
+
+@media only screen and (max-width: 420px) { 
+  .elem .id {
+    display: none;
+  }
+
+  .elem {
+    padding: 0 10px;
+  }
+
 }

@@ -1,6 +1,6 @@
 import LoaderScreen from "components/LoaderScreen/LoaderScreen";
+import Dashboard from "Dashboard";
 import React from "react";
-import {Dashboard} from "components";
 
 const App = () => {
  const isInit = true;
