@@ -3,3 +3,7 @@ export { default as LastAdded } from "./content/LastAdded";
 export { default as ListElement } from "./content/ListElement";
 export { default as LoaderScreen } from "./LoaderScreen/LoaderScreen";
 export { default as Playbar } from "./Playbar/Playbar";
+export { default as ProgressRange } from "./Playbar/ProgressRange/ProgressRange";
+export { default as FullCover } from "./Playbar/FullCover";
+export { default as VolumeIcon } from "./Playbar/VolumeIcon";
+export { default as Btn } from "./Btn";

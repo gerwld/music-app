@@ -28,8 +28,9 @@ const withAudio = (Component) => {
     .catch((e) => console.log(e));
   };
  
-  const onNextTrack = (isShuffle) => {
-   //If shuffle - find index of next id, if its bigger than array start from index 0 and play it.
+  const onNextTrack = () => {
+  //if shuffle - find id of nextId, 
+  //if its bigger than array - play id 0, if not nextId
    if (isShuffle && currentObj) {
     let currentId = currentObj.id;
     let nextIdIndex = shuffleIds.indexOf(currentId) + 1;

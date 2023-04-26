@@ -119,12 +119,13 @@
 .cs_bottom span {
   font-size: 0.8rem;
   padding: 0 10px;
+  color: rgba(255, 255, 255, 0.7);
 }
 
 .controls,
 .cs_bottom input {
-  flex: 0 0 400px;
-  width: 400px;
+  flex: 0 0 460px;
+  width: 460px;
 }
 
 .cs_top {
@@ -197,12 +198,18 @@
 
 .fc_wrapper button {
   position: absolute;
+  margin: 0;
   top: 0;
   right: 0;
   z-index: 10;
-  background-color: rgba(255, 255, 255, 0.5);
+  font-size: 1rem;
+  background-color: rgb(255, 255, 255);
   border: 1px solid white;
   border-radius: 0;
+}
+
+.fc_wrapper button:hover {
+  background-color: rgba(255, 255, 255, 0.911);
 }
 
 .cr_cover {
@@ -355,8 +362,6 @@
 
 
 
-
-
 @media only screen and (max-width: 1024px) {
 
   .controls,
@@ -454,13 +459,19 @@
     display: flex;
     padding: 0;
     border-radius: 50%;
+    outline: 2px solid rgba(255, 255, 255, 0.1);
   }
   .cs_top .play_btn svg {
     font-size: 102px;
     line-height: 100%;
     width: 100%;
     height: 100%;
+    transform: scale(1.25);
     transition: transform 0.1s ease-in-out;
+  }
+
+  .cs_top .play_btn:hover svg {
+    transform: scale(1.25);
   }
 }
 

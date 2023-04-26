@@ -45,8 +45,8 @@ return (
      <span>{title}</span>
     </div>
    </div>
-   <span className={s.album}>{album}</span>
-   <span className={s.dur}>{duration}</span>
+   <span onClick={onTrackClickAction} className={s.album}>{album}</span>
+   <span onClick={onTrackClickAction} className={s.dur}>{duration}</span>
 
    <button onClick={setTrackFromOrToFavCallback} className={s.cnt_btn}>
    {isFavorite ? <AiFillHeart/> :  <AiOutlineHeart />}

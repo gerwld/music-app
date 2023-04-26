@@ -53,6 +53,12 @@
  flex: 1;
 }
 
+.album,
+.dur {
+  height: 100%;
+  line-height: 56px;
+}
+
 .dur svg {
   margin: 0 0 0 8px;
   font-size: 1rem;
@@ -82,9 +88,6 @@
  text-align: right;
  line-height: 1em;
  color: #b7bec2;
- 
- 
-
  box-sizing: border-box;
 }
 

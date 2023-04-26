@@ -1,17 +1,34 @@
-import { withPlaybar } from "hoc/withPlayBar";
-import React from "react";
+import React, { useState } from "react";
+import tohms from "services/tohms";
+import s from "./s.module.css";
+
 import { HiBackward, HiForward, HiPauseCircle, HiPlayCircle } from "react-icons/hi2";
 import { IoRepeat, IoShuffleOutline } from "react-icons/io5";
 import { IoIosArrowDown } from "react-icons/io";
-import tohms from "services/tohms";
-import s from "./s.module.css";
 import { BiDotsHorizontalRounded } from "react-icons/bi";
-import { useState } from "react";
+
+import { Btn, ProgressRange } from "components";
+import { withPlaybar } from "hoc/withPlayBar";
 import Div100vh from "react-div-100vh";
 
-//|*** MOBILE PLAYbar ***|
-const PlaybarMobile = ({ currentObj, isPlaying, togglePlay, toggleShuffle, toggleRepeat, isShuffle, isRepeat, progress, onScrub, duration, onNextTrack, onPrevTrack }) => {
- const [isFullscreen, setFullscreen] = useState(false);
+
+
+const PlaybarMobile = (props) => {
+  const { 
+    currentObj, 
+    isPlaying, 
+    togglePlay, 
+    toggleShuffle, 
+    toggleRepeat, 
+    isShuffle, 
+    isRepeat, 
+    progress, 
+    onScrub, 
+    duration, 
+    onNextTrack, 
+    onPrevTrack 
+  } = props;
+  const [isFullscreen, setFullscreen] = useState(false);
 
  const toggleFullscreen = () => {
   setFullscreen(!isFullscreen);
@@ -31,19 +48,19 @@ const PlaybarMobile = ({ currentObj, isPlaying, togglePlay, toggleShuffle, toggl
       </div>
      </div>
 
-     <button onClick={togglePlay} className={s.play_btn__mobile}>
+     <Btn click={togglePlay} style={s.play_btn__mobile}>
       {isPlaying ? <HiPauseCircle /> : <HiPlayCircle />}
-     </button>
+     </Btn>
     </div>
 
     <Div100vh className={`${s.playbar_fullscreen} ${isFullscreen ? s.playbar__opened : ""}`}>
      <div className={s.playbar_nav}>
-      <button onClick={toggleFullscreen} title="Close full screen">
+      <Btn click={toggleFullscreen} title="Close full screen">
        <IoIosArrowDown />
-      </button>
-      <button title="More actions">
+      </Btn>
+      <Btn title="More">
        <BiDotsHorizontalRounded />
-      </button>
+      </Btn>
      </div>
 
      <div className={s.playbar_full_cover}>
@@ -56,29 +73,29 @@ const PlaybarMobile = ({ currentObj, isPlaying, togglePlay, toggleShuffle, toggl
 
      <div className={s.controls}>
       <div className={s.cs_top}>
-       <button onClick={toggleShuffle} className={`${isShuffle ? "active_btn" : ""}`}>
+       <Btn click={toggleShuffle} isActive={isShuffle}>
         <IoShuffleOutline />
-       </button>
+       </Btn>
 
        <div className={s.group}>
-        <button onClick={() => onPrevTrack(isShuffle)}>
+        <Btn click={onPrevTrack}>
          <HiBackward />
-        </button>
-        <button onClick={togglePlay} className={s.play_btn}>
+        </Btn>
+        <Btn click={togglePlay} style={s.play_btn}>
          {isPlaying ? <HiPauseCircle /> : <HiPlayCircle />}
-        </button>
-        <button onClick={() => onNextTrack(isShuffle)}>
+        </Btn>
+        <Btn click={onNextTrack}>
          <HiForward />
-        </button>
+        </Btn>
        </div>
 
-       <button onClick={toggleRepeat} className={`${isRepeat ? "active_btn" : ""}`}>
+       <Btn click={toggleRepeat} isActive={isRepeat}>
         <IoRepeat />
-       </button>
+       </Btn>
       </div>
       <div className={s.cs_btgroup}>
        <div className={s.cs_bottom}>
-        <input type="range" min="0" step="0.1" value={progress} onInput={onScrub}></input>
+       <ProgressRange value={progress} onChange={onScrub} step="1" />
        </div>
        <div className={s.cs_timeline}>
         <span>{progress ? tohms(progress * duration * 0.01) : ""}</span>
